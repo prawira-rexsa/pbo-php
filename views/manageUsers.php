@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Item</title>
+    <title>List User</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -29,7 +29,7 @@
             <!-- Button to Insert New Role -->
             <div class="mb-4">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    <a href="views/manageAddInsert.php">Insert New Items</a>
+                    <a href="views/manageAddUser.php">Insert New Employee</a>
                 </button>
             </div>
 
@@ -39,28 +39,28 @@
                     <thead class="bg-gray-800 text-white">
 
                     <tr>
-                        <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">ID Item</th>
-                        <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Name Item</th>
-                        <th class="w-1/3 py-3 px-4 uppercase font-semibold text-sm">Price Item</th>
-                        <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Amount Item     </th>
+                        <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">ID</th>
+                        <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Employee Name</th>
+                        <th class="w-1/3 py-3 px-4 uppercase font-semibold text-sm">Address</th>
+                        <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Position</th>
                         <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Actions</th>
                     </tr>
 
                     </thead>
                     <tbody class="text-gray-700">
                     <!-- Static Data Rows -->
-                    <?php foreach($obj_item as $item){ ?>
+                    <?php foreach($objUser as $user){ ?>
                     <tr class="text-center">
-                    <td class="py-3 px-4 text-blue-600"><?php echo htmlspecialchars($item->item_id)?></td>
-                        <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($item->item_name)?></td>
-                        <td class="w-1/3 py-3 px-4"><?php echo htmlspecialchars($item->price_item)?></td>
-                        <td class="w-1/6 py-3 px-4"><?php echo htmlspecialchars($item->amount_item)?></td>
+                    <td class="py-3 px-4 text-blue-600"><?php echo htmlspecialchars($user->user_id)?></td>
+                        <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($user->username)?></td>
+                        <td class="w-1/3 py-3 px-4"><?php echo htmlspecialchars($user->addressUser)?></td>
+                        <td class="w-1/6 py-3 px-4"><?php echo htmlspecialchars($user->jabatanUser)?></td>
                         <td class="w-1/6 py-3 px-4">
                             <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                <a href="index.php?modul=item&insert=edit&id=<?php echo htmlspecialchars($item->item_id); ?>">Update</a>
+                                <a href="index.php?modul=user&employee=edit&id=<?php echo htmlspecialchars($user->user_id); ?>">Update</a>
                             </button>
                             <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                <a href="index.php?modul=item&insert=delete&id=<?php echo htmlspecialchars($item->item_id); ?>">Delete</a>
+                                <a href="index.php?modul=user&employee=delete&id=<?php echo htmlspecialchars($user->user_id); ?>">Delete</a>
                             </button>
                         </td>
                         <?php } ?>

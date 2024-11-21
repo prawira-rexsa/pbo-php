@@ -21,8 +21,8 @@ class modelItem
         $this->addItem("RAM DDR 4", "Rp200.000", 0);
     }
 
-    public function addItem($itemName, $priceItem, $amountItem) {
-        $peranItem = new Item($this->nextId++, $itemName, $priceItem, $amountItem);
+    public function addItem($item_name, $price_Item, $amount_item) {
+        $peranItem = new Item($this->nextId++, $item_name, $price_Item, $amount_item);
         $this->items[] = $peranItem;
         $this->saveToSession();
     }
@@ -35,7 +35,7 @@ class modelItem
         return $this->items;
     }
 
-    public function getRoleById($item_id) {
+    public function getItemById($item_id) {
         foreach ($this->items as $item) {
             if ($item->item_id == $item_id) {
                 return $item;
@@ -44,12 +44,12 @@ class modelItem
         return null;
     }
 
-    public function updateRole($item_id, $itemName, $priceItem, $amountItem) {
+    public function updateItem($item_id, $item_name, $price_item, $amount_item) {
         foreach ($this->items as $item) {
             if ($item->item_id == $item_id) {
-                $item->item_name = $itemName;
-                $item->price_Item = $priceItem;
-                $item->amount_item = $amountItem;
+                $item->item_name = $item_name;
+                $item->price_Item = $price_item;
+                $item->amount_item = $amount_item;
                 $this->saveToSession();
                 return true;
             }
@@ -57,7 +57,7 @@ class modelItem
         return false;
     }
 
-    public function deleteRole($item_id) {
+    public function deleteItem($item_id) {
         foreach ($this->items as $key => $item) {
             if ($item->item_id == $item_id) {
                 unset($this->items[$key]);

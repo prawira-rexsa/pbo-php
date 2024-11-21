@@ -1,6 +1,7 @@
 <?php
 require_once 'models/role_model.php';
 require_once 'models/item_model.php'; 
+require_once 'models/user_model.php';
 
 session_start();
 
@@ -12,15 +13,17 @@ if (isset($_GET['modul'])){
 
 $objRole = new modelRole();
 $objItem = new modelItem();
-$fitur = isset($_GET['fitur']) ? $_GET['fitur'] : null;
-$role_id = isset($_GET['id']) ? $_GET['id'] : null;
-$item_id = isset($_GET['id']) ? $_GET['id'] : null;
+$objUser = new userModel();
+
 
 switch($modul){
   case 'dasboard':
     include 'views/kosong.php';
     break;
   case 'role':
+    $fitur = isset($_GET['fitur']) ? $_GET['fitur'] : null;
+    $role_id = isset($_GET['id']) ? $_GET['id'] : null;
+
     switch($fitur){
       case 'add':
           $role_name = $_POST['role_name'];
@@ -62,15 +65,45 @@ switch($modul){
           include 'views/role_list.php';
           break;
     }
+    break;
 
   case 'item':
-    switch($fitur){
+    $item_id = isset($_GET['id']) ? $_GET['id'] : null;
+    $insert = isset($_GET['insert']) ? $_GET['insert'] : null;
+
+    switch($insert){
         case 'add':
           $item_name = $_POST['item_name'];
-          $price_Item = $_POST['price_item'];
-          $price_Item = $_POST['amount_item'];
-          $objItem->addItem($item_name, $price_Item, $price_Item);
+          $price_item = $_POST['price_item'];
+          $amount_item = $_POST['amount_item'];
+          $objItem->addItem($item_name, $price_item, $amount_item);
           header('location: index.php?modul=item');
+          break;
+        
+        case 'delete':
+          $objItem->deleteItem($item_id);
+          echo "<script type='text/javascript'>alert('Sukses Hapus Item ID {$item_id}');
+                window.location.href = 'index.php?modul=item';
+                </script>";
+          break;
+
+        case 'edit':
+          $item = $objItem->getItemById($item_id);
+          include 'views/manageUpdateItems.php';
+          break;
+
+        case 'update':
+          if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $item_name = $_POST['item_name'];
+            $price_item = $_POST['price_item'];
+            $amount_item = $_POST['amount_item'];
+  
+            $objItem->updateItem($item_id, $item_name, $price_item, $amount_item);
+        
+            header('location: index.php?modul=item'); 
+          }else {
+            include 'views/manageItems.php';
+          }
           break;
 
         default:
@@ -78,6 +111,52 @@ switch($modul){
           include 'views/manageItems.php';
           break;
     }
+    break;
+
+  case 'user':
+    $user_id = isset($_GET['id']) ? $_GET['id'] : null;
+    $employee = isset($_GET['employee']) ? $_GET['employee'] : null;
+
+    switch($employee){
+      case 'add':
+        $username = $_POST['username'];
+        $addressUser = $_POST['addressEmployee'];
+        $jabatanUser = $_POST['positionUser'];
+        $objUser->addUsers($username, $addressUser, $jabatanUser);
+        header('location: index.php?modul=user');
+        break;
+      
+      case 'delete':
+        $objUser->deleteUser($user_id);
+        echo "<script type='text/javascript'>alert('Sukses Hapus Item ID {$user_id}');
+              window.location.href = 'index.php?modul=user';
+              </script>";
+        break;
+    
+      case 'edit':
+        $user = $objUser->getUserById($user_id);
+        include 'views/manageUpdateUser.php';
+        break;
+
+      case 'update':
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          $username = $_POST['username'];
+          $addressUser = $_POST['addressEmployee'];
+          $jabatanUser = $_POST['positionUser'];
+
+          $objUser->updateUser($user_id, $username, $addressUser, $jabatanUser);
+      
+          header('location: index.php?modul=user'); 
+        }else {
+          include 'views/manageUsers.php';
+        }
+        break;
+    }
+
+    default:
+    $objUser = $objUser->getAllUser();
+    include 'views/manageUsers.php';
+    break;
   }
 
 ?>

@@ -16,9 +16,12 @@ class modelRole
     }
 
     public function initializeDefaultRole() {
-        $this->addRole("Admin", "Administrator", 1);
-        $this->addRole("User", "Customer", 1);
-        $this->addRole("Kasir", "Pembayaran", 0);
+        $this->addRole("Owner", "Owner", 1);
+        $this->addRole("Admin", "Admin", 1);
+        $this->addRole("Kurir", "Kurir-1", 1);
+        $this->addRole("Kurir", "Kurir-2", 1);
+        $this->addRole("Teknisi", "Teknisi-1", 1);
+        $this->addRole("Teknisi", "Teknisi-2", 1);
     }
 
     public function addRole($role_name, $role_desc, $role_status) {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Item</title>
+    <title>Input Employee</title>
 <!--    <link href="./Views/output.css" rel="stylesheet">-->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -21,27 +21,27 @@
         <div class="flex-1 p-8">
             <!-- Formulir Input Role -->
             <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Input Item</h2>
-                <form action="index.php?modul=item&insert=update&id=<?php echo $item->item_id; ?>" method="POST">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Input Employee</h2>
+                <form action="index.php?modul=user&employee=update&id=<?php echo ($user->user_id); ?>" method="POST">
                     <!-- Nama Role -->
                     <div class="mb-4">
-                        <label for="item_name" class="block text-gray-700 text-sm font-bold mb-2">Nama Barang :</label>
-                        <input type="text" id="item_name" name="item_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required
-                        value="<?php echo htmlspecialchars($item->item_name); ?>">
+                        <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Employee Name :</label>
+                        <input type="text" id="username" name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required
+                        value="<?php echo htmlspecialchars($user->username); ?>">
                     </div>
 
                     <!-- Role role_description -->
                     <div class="mb-4">
-                        <label for="price_item" class="block text-gray-700 text-sm font-bold mb-2">Harga Barang :</label>
-                        <textarea id="price_item" name="price_item" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukan harga barang" rows="3" required
-                        ><?php echo htmlspecialchars($item->price_item)?></textarea>
+                        <label for="addressEmployee" class="block text-gray-700 text-sm font-bold mb-2">Address :</label>
+                        <textarea id="addressEmployee" name="addressEmployee" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukan harga barang" rows="3" required
+                        ><?php echo htmlspecialchars($user->addressUser)?></textarea>
                     </div>
 
                     <!-- Role Status -->
                     <div class="mb-4">
-                        <label for="amount_item" class="block text-gray-700 text-sm font-bold mb-2">Jumlah Barang :</label>
-                        <input type="text" id="amount_item" name="amount_item" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required
-                        value="<?php echo htmlspecialchars($item->amount_item); ?>">
+                        <label for="positionUser" class="block text-gray-700 text-sm font-bold mb-2">Position :</label>
+                        <input type="text" id="positionUser" name="positionUser" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required
+                        value="<?php echo htmlspecialchars($user->jabatanUser); ?>">
                     </div>
 
 
