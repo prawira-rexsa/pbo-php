@@ -9,7 +9,11 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
-    <?php include 'includes/navbar.php'; ?>
+    <?php include 'includes/navbar.php'; 
+        require_once '/../models/role_model.php';
+        $obj_role = new modelRole();
+        $roles = $obj_role->getAllRoles();
+    ?>
 
     <!-- Main container -->
     <div class="flex">
@@ -34,11 +38,18 @@
                         <textarea id="addressEmployee" name="addressEmployee" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukkan Alamat Pegawai" rows="3" required></textarea>
                     </div>
 
-                    <!-- Role Status -->
-                    <div class="mb-4">
-                        <label for="positionUser" class="block text-gray-700 text-sm font-bold mb-2">Position:</label>
-                        <input type="text" id="positionUser" name="positionUser" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Masukkan Posisi Jabatan" required>
-                    </div>
+            <div class="mb-4">
+                <label for="positionUser" class="block text-gray-700 text-sm font-bold mb-2">Position :</label>
+                <select id="positionUser" name="positionUser" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <option value="" disabled selected>Pilih posisi</option>
+                    <?php
+                    foreach ($roles as $role) {
+                        echo '<option value="' . htmlspecialchars($role->role_name) . '">' . htmlspecialchars($role->role_name) . '</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+
 
                     <!-- Submit Button -->
                     <div class="flex items-center justify-between">

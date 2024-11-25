@@ -2,6 +2,7 @@
 require_once 'models/role_model.php';
 require_once 'models/item_model.php'; 
 require_once 'models/user_model.php';
+require_once 'models/transaksiModel.php';
 
 session_start();
 
@@ -14,11 +15,11 @@ if (isset($_GET['modul'])){
 $objRole = new modelRole();
 $objItem = new modelItem();
 $objUser = new userModel();
-
+$objTrx = new transaksiModel();
 
 switch($modul){
   case 'dasboard':
-    include 'views/kosong.php';
+    include 'views/beranda.php';
     break;
   case 'role':
     $fitur = isset($_GET['fitur']) ? $_GET['fitur'] : null;
@@ -137,7 +138,7 @@ switch($modul){
         $user = $objUser->getUserById($user_id);
         include 'views/manageUpdateUser.php';
         break;
-
+    
       case 'update':
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
           $username = $_POST['username'];
@@ -150,13 +151,33 @@ switch($modul){
         }else {
           include 'views/manageUsers.php';
         }
-        break;
-    }
 
-    default:
-    $objUser = $objUser->getAllUser();
-    include 'views/manageUsers.php';
+      break;
+      default:
+      $objUser = $objUser->getAllUser();
+      include 'views/manageUsers.php';
+    }
     break;
-  }
+  
+  case 'insertTrx':
+    $id_trx = isset($_GET['id']) ? $_GET['id'] : null;
+    $trxdetails = isset($_GET['trxdetails']) ? $_GET['trxdetails'] : null;
+
+    switch($trxdetails){
+      case 'add':
+        $name_trx = $_POST['nameTrx'];
+        $amount_trx = $_POST['amountTrx'];
+        $date_trx = $_POST['dateTrx'];
+        $objTrx->addTrx($name_trx, $amount_trx, $date_trx);
+        header('location: index.php?modul=insertrx');
+        break;
+    
+
+      default:
+      $objTrx = $objTrx->getAllTrx();
+      include 'views/manageAddTransaksi.php';
+    }
+}
+
 
 ?>

@@ -1,7 +1,7 @@
 <nav class="bg-blue-600 p-4 shadow-lg">
     <div class="container mx-auto flex justify-between items-center">
         <div class="text-white font-bold text-xl">
-            My Application
+            PRAWIRA STORE
         </div>
         <div class="text-white">
             <span class="mr-4">Username</span>

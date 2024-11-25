@@ -40,17 +40,24 @@
                     <!-- Role Status -->
                     <div class="mb-4">
                         <label for="positionUser" class="block text-gray-700 text-sm font-bold mb-2">Position :</label>
-                        <input type="text" id="positionUser" name="positionUser" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required
-                        value="<?php echo htmlspecialchars($user->jabatanUser); ?>">
+                        <select id="positionUser" name="positionUser" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <option value="" disabled selected>Pilih posisi</option>
+                            <?php
+                            $roles = $objRole->getAllRoles();
+                            foreach ($roles as $role) {
+                                echo "<option value=\"{$role->role_name}\" " . 
+                                    (($user->jabatanUser == $role->role_name) ? 'selected' : '') . 
+                                    ">{$role->role_name}</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
-
 
                     <!-- Submit Button -->
                     <div class="flex items-center justify-between">
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                             Update
                         </button>
-                        
                     </div>
                 </form>
             </div>
