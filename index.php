@@ -1,8 +1,8 @@
 <?php
-require_once 'models/role_model.php';
+require_once 'controllers/Role_Controller.php';
 require_once 'models/item_model.php'; 
-require_once 'models/user_model.php';
-require_once 'models/transaksiModel.php';
+require_once 'controllers/UserController.php';
+require_once 'controllers/TransactionController.php';
 
 session_start();
 
@@ -15,7 +15,7 @@ if (isset($_GET['modul'])){
 $objRole = new modelRole();
 $objItem = new modelItem();
 $objUser = new userModel();
-$objTrx = new transaksiModel();
+$transactionController = new TransactionController();
 
 switch($modul){
   case 'dasboard':
@@ -159,24 +159,50 @@ switch($modul){
     }
     break;
   
-  case 'insertTrx':
-    $id_trx = isset($_GET['id']) ? $_GET['id'] : null;
-    $trxdetails = isset($_GET['trxdetails']) ? $_GET['trxdetails'] : null;
+    case 'insertTrx':
+      $id_trx = isset($_GET['id_trx']) ? $_GET['id_trx'] : null;
+      $trxdetails = isset($_GET['trxdetails']) ? $_GET['trxdetails'] : null;
+  
+      switch($trxdetails){
+          case 'add':
+            
+              $id_trx = $_POST['id_trx']; 
+              $name_trx = $_POST['itemSelect'];
+              $amount_trx = $_POST['amount_trx'];
+              $date_trx = $_POST['date_trx'];
 
-    switch($trxdetails){
-      case 'add':
-        $name_trx = $_POST['nameTrx'];
-        $amount_trx = $_POST['amountTrx'];
-        $date_trx = $_POST['dateTrx'];
-        $objTrx->addTrx($name_trx, $amount_trx, $date_trx);
-        header('location: index.php?modul=insertrx');
-        break;
+              
+              $selectedItem = $objItem->getItemById($id_trx);  
+              $name_trx = $objItem->getRoleByName($selectedItem);        //$selectedItem['name_trx']; 
+
+              if (!isset($_SESSION['transactions'])) {
+                  $_SESSION['transactions'] = [];
+              }
+              
+              $_SESSION['transactions'][] = [
+                  'id_trx' => $id_trx,
+                  'name_trx' => $name_trx,
+                  'amount_trx' => $amount_trx,
+                  'date_trx' => $date_trx,
+                  
+              ];
+              $tambah = new transaksiModel();
+                  $tambah->addTrx($name_trx, $amount_trx, $date_trx);
+  
+              $_SESSION['success_message'] = 'Data transaksi berhasil disimpan.';
+              header('location: index.php?modul=DetailsTrx'); 
+              exit();
+
+            default:
+              include 'views/manageAddTransaksi.php';
+      }
+      break;
     
-
-      default:
-      $objTrx = $objTrx->getAllTrx();
-      include 'views/manageAddTransaksi.php';
-    }
+      case 'DetailsTrx':
+        $transactions = $transactionController->getAllTransactions();
+        include 'views/manageTransaction.php'; 
+        break;
+  
 }
 
 
