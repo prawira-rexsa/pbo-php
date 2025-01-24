@@ -44,25 +44,27 @@
                     </tr>
                     </thead>
                     <body class="text-gray-700">
-                    <?php if (empty($transactions)): ?>
-                        <tr>
-                            <td colspan="5" class="text-center py-3">Tidak ada transaksi yang tersedia.</td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($transactions as $transaction): ?>
-                            <tr class="text-center">
-                                <td class="py-3 px-4"><?php echo htmlspecialchars($transaction['id_trx']) ; ?></td>
-                                <td class="py-3 px-4"><?php echo htmlspecialchars($transaction['name_trx']); ?></td>
-                                <td class="py-3 px-4"><?php echo htmlspecialchars($transaction['amount_trx']); ?></td>
-                                <td class="py-3 px-4"><?php echo htmlspecialchars($transaction['date_trx']); ?></td>
-                                <td class="py-3 px-4">
-                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                        <a href="index.php?modul=insertTrx&employee=delete&id=<?php echo $transaction['id_trx']; ?>">Delete</a>
-                                    </button>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+
+<?php if (empty($transactions)): ?>
+    <tr>
+        <td colspan="5" class="text-center py-3">Tidak ada transaksi yang tersedia.</td>
+    </tr>
+<?php else: ?>
+    <?php foreach ($transactions as $transaction): ?>
+        <tr class="text-center">
+            <td class="py-3 px-4"><?php echo htmlspecialchars($transaction->id_trx); ?></td> <!-- Change from $transaction['id_trx'] to $transaction->id_trx -->
+            <td class="py-3 px-4"><?php echo htmlspecialchars($transaction->name_trx); ?></td> <!-- Change from $transaction['name_trx'] to $transaction->name_trx -->
+            <td class="py-3 px-4"><?php echo htmlspecialchars($transaction->amount_trx); ?></td> <!-- Change from $transaction['amount_trx'] to $transaction->amount_trx -->
+            <td class="py-3 px-4"><?php echo htmlspecialchars($transaction->date_trx); ?></td> <!-- Change from $transaction['date_trx'] to $transaction->date_trx -->
+            <td class="py-3 px-4">
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
+                    <a href="index.php?modul=insertTrx&employee=delete&id=<?php echo $transaction->id_trx; ?>">Delete</a> <!-- Change from $transaction['id_trx'] to $transaction->id_trx -->
+                </button>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif; ?>
+
                     </body>
                 </table>
             </div>
